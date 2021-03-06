@@ -1,0 +1,29 @@
+<mat-card>
+  <h2>Registro de hijo</h2>
+  <form [formGroup]="formAddHijo" (ngSubmit)="submitAddHijo()">
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido paterno</mat-label>
+      <input matInput formControlName="apPaterno">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido materno</mat-label>
+      <input matInput formControlName="apMaterno">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Primer nombre</mat-label>
+      <input matInput formControlName="nombre1">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Segundo nombre</mat-label>
+      <input matInput formControlName="nombre2">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput [matDatepicker]="pickerFchNac" formControlName="fchNac">
+      <mat-datepicker-toggle matSuffix [for]="pickerFchNac"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFchNac></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formAddHijo.valid">Registrar</button>
+  </form>
+  </mat-card>

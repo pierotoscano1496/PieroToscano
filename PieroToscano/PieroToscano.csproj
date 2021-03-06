@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -24,8 +24,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\Hijo.ts" />
+    <None Remove="ClientApp\src\app\models\interfaces\IHijo.ts" />
+    <None Remove="ClientApp\src\app\models\interfaces\IPersonal.ts" />
+    <None Remove="ClientApp\src\app\models\Personal.ts" />
+    <None Remove="ClientApp\src\app\services\Services.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\Hijo.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\interfaces\IHijo.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\interfaces\IPersonal.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Personal.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\Services.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

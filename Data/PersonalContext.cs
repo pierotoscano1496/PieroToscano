@@ -57,6 +57,51 @@ namespace Data
             }
         }
 
+        public Personal Personal(int idPersonal)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                Personal personal = new Personal();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(@"getPersonalById", connection);
+                    command.Parameters.AddWithValue("@IdPersonal", idPersonal);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            personal = new Personal
+                            {
+                                IdPersonal = reader.GetInt32("idPersonal"),
+                                ApPaterno = reader.GetString("apPaterno"),
+                                ApMaterno = reader.GetString("apMaterno"),
+                                Nombre1 = reader.GetString("nombre1"),
+                                Nombre2 = reader.GetString("nombre2"),
+                                FchNac = reader.GetDateTime("fchNac"),
+                                FchIngreso = reader.GetDateTime("fchIngreso")
+                            };
+                        }
+                    }
+
+                    return personal;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public int AddPersonal(Personal personal)
         {
             int lastId = 0;
@@ -66,7 +111,7 @@ namespace Data
                 {
                     connection.Open();
 
-                    SqlCommand command = new SqlCommand(@"addPersonal");
+                    SqlCommand command = new SqlCommand(@"addPersonal", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ApPaterno", personal.ApPaterno);
                     command.Parameters.AddWithValue("@ApMaterno", personal.ApMaterno);

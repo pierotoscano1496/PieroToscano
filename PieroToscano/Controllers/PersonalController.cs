@@ -28,13 +28,28 @@ namespace PieroToscano.Controllers
             }
         }
 
+        [HttpGet("{idPersonal}")]
+        public IActionResult Personal(int idPersonal)
+        {
+            try
+            {
+                Personal personal = business.Personal(idPersonal);
+                return Ok(personal);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddPersonal(Personal personal)
         {
             try
             {
                 int lastId = business.AddPersonal(personal);
-                return Ok(lastId);
+                personal.IdPersonal = lastId;
+                return CreatedAtAction(nameof(Personal), new { idPersonal = lastId }, personal);
             }
             catch
             {

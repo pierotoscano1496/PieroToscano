@@ -57,6 +57,51 @@ namespace Data
             }
         }
 
+        public Hijo Hijo(int idDerhab)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                Hijo hijo = new Hijo();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(@"getHijoById", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdDerhab", idDerhab);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            hijo = new Hijo
+                            {
+                                IdDerhab = reader.GetInt32("idDerhab"),
+                                IdPersonal = reader.GetInt32("idPersonal"),
+                                ApPaterno = reader.GetString("apPaterno"),
+                                ApMaterno = reader.GetString("apMaterno"),
+                                Nombre1 = reader.GetString("nombre1"),
+                                Nombre2 = reader.GetString("nombre2"),
+                                FchNac = reader.GetDateTime("fchNac")
+                            };
+                        }
+                    }
+
+                    return hijo;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public int AddHijo(Hijo hijo)
         {
             int lastId = 0;
@@ -66,7 +111,7 @@ namespace Data
                 {
                     connection.Open();
 
-                    SqlCommand command = new SqlCommand(@"addHijo");
+                    SqlCommand command = new SqlCommand(@"addHijo", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@IdPersonal", hijo.IdPersonal);
                     command.Parameters.AddWithValue("@ApPaterno", hijo.ApPaterno);

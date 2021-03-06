@@ -1,0 +1,59 @@
+<table mat-table [dataSource]="personales" class="mat-elevation-z8">
+  <ng-container matColumnDef="idPersonal">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let personal"> {{personal.idPersonal}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombreCompleto">
+    <th mat-header-cell *matHeaderCellDef> Nombre completo </th>
+    <td mat-cell *matCellDef="let personal"> {{personal.nombreCompleto}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fchNac">
+    <th mat-header-cell *matHeaderCellDef> Fecha Nac </th>
+    <td mat-cell *matCellDef="let personal"> {{personal.fchNac}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fchIngreso">
+    <th mat-header-cell *matHeaderCellDef> Fecha Ingreso </th>
+    <td mat-cell *matCellDef="let personal"> {{personal.fchIngreso}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="getHijos">
+    <th mat-header-cell *matHeaderCellDef> Acción </th>
+    <td mat-cell *matCellDef="let personal">
+      <button mat-raised-button (click)="openDialogVerHijos(personal.idPersonal)">Ver hijos</button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="addHijo">
+    <th mat-header-cell *matHeaderCellDef> Acción 2 </th>
+    <td mat-cell *matCellDef="let personal">
+      <button mat-raised-button (click)="addHijo(personal.idPersonal)">Agregar hijos</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!--<table>
+    <thead>
+        <tr>
+            <th>NroDocumento</th>
+            <th>Nombre Completo</th>
+            <th>Fecha Nac</th>
+            <th>Fecha Ingreso</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let personal of personales">
+            <td>{{ personal.idPersonal }}</td>
+            <td>{{ personal.nombreCompleto }}</td>
+            <td>{{ personal.fchNac }}</td>
+            <td>{{ personal.fchIngreso }}</td>
+            <td><button mat-raised-button (click)="openDialogVerHijos(personal.idPersonal)">Ver hijos</button></td>
+        </tr>
+    </tbody>
+</table>-->

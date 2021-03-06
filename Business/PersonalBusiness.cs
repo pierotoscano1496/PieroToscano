@@ -15,6 +15,12 @@ namespace Business
             return personales;
         }
 
+        public Personal Personal(int idPersonal)
+        {
+            Personal personal = context.Personal(idPersonal);
+            return personal;
+        }
+
         public int AddPersonal(Personal personal)
         {
             int lastId = context.AddPersonal(personal);

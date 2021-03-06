@@ -16,6 +16,12 @@ namespace Business
             return hijos;
         }
 
+        public Hijo Hijo(int idDerhab)
+        {
+            Hijo hijo = context.Hijo(idDerhab);
+            return hijo;
+        }
+
         public int AddHijo(Hijo hijo)
         {
             int lastId = context.AddHijo(hijo);
